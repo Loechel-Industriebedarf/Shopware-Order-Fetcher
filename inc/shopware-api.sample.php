@@ -74,7 +74,7 @@ class ApiClient
 
     protected function prepareResponse($result, $httpCode)
     {
-        echo "HTTP: $httpCode";
+        //echo "HTTP: $httpCode";
         if (null === $decodedResult = json_decode($result, true)) {
             $jsonErrors = [
                 JSON_ERROR_NONE => 'No error occurred',
@@ -103,10 +103,10 @@ class ApiClient
 
             return;
         }
-        echo 'Success';
+        //echo 'Success';
         if (isset($decodedResult['data'])) {
 			//Show order array
-            echo '<pre>' . print_r($decodedResult['data'], true) . '</pre>';
+            //echo '<pre>' . print_r($decodedResult['data'], true) . '</pre>';
         }
 
         return $decodedResult;
