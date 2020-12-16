@@ -10,7 +10,7 @@ $date = date('m/d/Y h:i:s a', time());
 
 //The order number of the newest order
 $orders = $client->get('orders', [
-'limit' => 1,
+'limit' => 999,
 'sort' => [ 
 	['property' => 'number', 'direction' => 'DESC']
 ]
@@ -30,10 +30,17 @@ if(!file_exists($csvfile)){
 	if($last_order < $current_order){
 	//Count order up
 	$last_order++;
+	//$call = "orders/12345?useNumberAsId=true";
 	$call = "orders/".$last_order."?useNumberAsId=true";
 	
 	//Call for order details
 	$order_details = $client->get($call);
+
+	/*
+	echo "<pre>";
+	var_dump($order_details);
+	echo "</pre>";
+	*/
 	
 	if(isset($order_details["data"])){
 		$list = array ( );
@@ -43,9 +50,9 @@ if(!file_exists($csvfile)){
 		"Artikelnr", "Preis", "Anzahl",
 		"Zahlungsart", "Versandkosten",
 		"BillingFirma", "BillingStrasse", "BillingPLZ", "BillingOrt",
-		"BillingLand", "BillingLKZ", "ShipingFirma", 
-		"ShipingStrasse", "ShipingPLZ", "ShipingOrt",
-		"ShipingLand", "ShipingLKZ", "Mail"
+		"BillingLand", "BillingLKZ", "ShippingFirma", 
+		"ShipingStrasse", "ShippingPLZ", "ShippingOrt",
+		"ShippingLand", "ShippingLKZ", "Mail", "TransactionId"
 		));
 		//Add content to list
 		$order_data = $order_details["data"];
@@ -68,7 +75,7 @@ if(!file_exists($csvfile)){
 			$order_billing["country"]["name"], $order_billing["country"]["iso"],
 			$shipping_adress, $order_shipping["street"], $order_shipping["zipCode"], $order_shipping["city"],
 			$order_shipping["country"]["name"], $order_shipping["country"]["iso"],
-			$order_data["customer"]["email"]
+			$order_data["customer"]["email"], $order_data["transactionId"]
 			));
 		}
 		
