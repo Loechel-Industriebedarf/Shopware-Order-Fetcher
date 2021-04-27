@@ -43,6 +43,12 @@ if(!file_exists($csvfile)){
 	*/
 	
 	if(isset($order_details["data"])){
+		
+		echo "<pre>";
+		var_dump($order_details["data"]);
+		echo "</pre>";
+		
+
 		$list = array ( );
 		//Add headline to list
 		array_push($list, array(
@@ -52,7 +58,7 @@ if(!file_exists($csvfile)){
 		"BillingFirma", "BillingStrasse", "BillingPLZ", "BillingOrt",
 		"BillingLand", "BillingLKZ", "ShippingFirma", 
 		"ShipingStrasse", "ShippingPLZ", "ShippingOrt",
-		"ShippingLand", "ShippingLKZ", "Mail", "TransactionId"
+		"ShippingLand", "ShippingLKZ", "Mail", "TransactionId", "Phone"
 		));
 		//Add content to list
 		$order_data = $order_details["data"];
@@ -75,7 +81,7 @@ if(!file_exists($csvfile)){
 			$order_billing["country"]["name"], $order_billing["country"]["iso"],
 			$shipping_adress, $order_shipping["street"], $order_shipping["zipCode"], $order_shipping["city"],
 			$order_shipping["country"]["name"], $order_shipping["country"]["iso"],
-			$order_data["customer"]["email"], $order_data["transactionId"]
+			$order_data["customer"]["email"], $order_data["transactionId"], $order_shipping["phone"]
 			));
 		}
 		
